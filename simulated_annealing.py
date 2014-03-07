@@ -8,6 +8,7 @@ def anneal(initial_state, energy_function, neighbour, transition_probability, te
     energy_function
     neighbour
     transition_probability
+    temperature
     max_steps
     energy_max
     """
