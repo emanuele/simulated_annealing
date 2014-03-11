@@ -40,6 +40,7 @@ def anneal(initial_state, energy_function, neighbour, transition_probability, te
     energy = energy_function(state)
     state_best = state
     energy_best = energy
+    energy_old = energy
     k = 0
     print "Step) Energy \t Prob. \t Temp. \t (E'-E) \t BEST"
     while k < max_steps and energy > energy_max:
