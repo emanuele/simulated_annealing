@@ -25,7 +25,7 @@ def temperature_boltzmann(k, T0):
     return T_new
 
 
-def anneal(initial_state, energy_function, neighbour, transition_probability, temperature, max_steps, energy_max, T0, log_every=1000):
+def anneal(initial_state, energy_function, neighbour, transition_probability, temperature, max_steps, energy_max, T0, log_every=1000, args=[]):
     """Simulated annealing optimization.
 
     initial_state
@@ -37,7 +37,7 @@ def anneal(initial_state, energy_function, neighbour, transition_probability, te
     energy_max
     """
     state = initial_state
-    energy = energy_function(state)
+    energy = energy_function(state, *args)
     state_best = state
     energy_best = energy
     energy_old = energy
@@ -46,13 +46,12 @@ def anneal(initial_state, energy_function, neighbour, transition_probability, te
     while k < max_steps and energy > energy_max:
         T = temperature(k, T0)
         state_new = neighbour(state)
-        energy_new = energy_function(state_new)
+        energy_new = energy_function(state_new, *args)
         p = transition_probability(energy, energy_new, T)
         if p > np.random.rand():
             state = state_new
             energy_old = energy
             energy = energy_new
-            
         if energy_new < energy_best:
             state_best = state_new
             energy_best = energy_new
